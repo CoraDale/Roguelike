@@ -8,6 +8,8 @@ signal has_movement_goal(movement_goal)
 var _is_my_turn := false
 var _movement_goal := Vector2.ZERO
 
+var can_act = true
+
 func _ready() -> void:
 	add_to_group("entitys")
 
@@ -53,3 +55,7 @@ func _determine_movement_goal() -> Vector2:
 
 func _movement_result(success: bool) -> void:
 	_movement_goal = Vector2.ZERO
+
+func round_update() -> void:
+	pass
+

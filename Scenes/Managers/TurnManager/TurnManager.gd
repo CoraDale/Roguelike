@@ -14,12 +14,13 @@ func _ready() -> void:
 func initialize() -> void:
 	active_character = get_child(0)
 
-func play_turn():
-	if not waiting_for_action:
-		waiting_for_action = true
-		print("Turn: {turn} - Go {EntityName}".format({"turn": turn as String, "EntityName": active_character.name}))
-		yield(active_character.play_turn(), "completed")
-		var new_index : int = (active_character.get_index() + 1) % get_child_count()
-		active_character = get_child(new_index)
+##This code is wip
+func play_round():
+	for node in get_children():
+		var entity := node as Entity
+		print("Turn: {turn} - Go {EntityName}".format({"turn": turn as String, "EntityName": entity.name}))
 		turn += 1
-		waiting_for_action = false
+		if entity:
+			entity.round_update()
+			if entity.can_act:
+				var action = yield(entity.play_turn(), "completed")
