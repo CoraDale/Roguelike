@@ -3,9 +3,13 @@ class_name GameManager
 extends Node
 
 onready var WorldGrid := $WorldGrid
+onready var TurnManager := $WorldGrid/TurnManager
 
 func _ready() -> void:
 	_connect_to_signals()
+	
+func _physics_process(delta) -> void:
+	TurnManager.play_turn()
 
 func _connect_to_signals() -> void:
 	var entitys := get_tree().get_nodes_in_group("entitys")

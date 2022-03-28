@@ -17,12 +17,17 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "GameManager",
 "language": "GDScript",
-"path": "res://Scenes/GameManager/GameManager.gd"
+"path": "res://Scenes/Managers/GameManager/GameManager.gd"
 }, {
 "base": "",
 "class": "GitAPI",
 "language": "NativeScript",
 "path": "res://addons/godot-git-plugin/git_api.gdns"
+}, {
+"base": "Node",
+"class": "TurnManager",
+"language": "GDScript",
+"path": "res://Scenes/Managers/TurnManager/TurnManager.gd"
 }, {
 "base": "TileMap",
 "class": "WorldGrid",
@@ -33,18 +38,25 @@ _global_script_class_icons={
 "Entity": "",
 "GameManager": "",
 "GitAPI": "",
+"TurnManager": "",
 "WorldGrid": ""
 }
 
 [application]
 
 config/name="Roguelike"
-run/main_scene="res://Scenes/GameManager/GameManager.tscn"
+run/main_scene="res://Scenes/Managers/GameManager/GameManager.tscn"
 config/icon="res://icon.png"
 
 [gdnative]
 
 singletons=[ "res://addons/godot-git-plugin/git_api.gdnlib" ]
+
+[importer_defaults]
+
+texture={
+"flags/filter": false
+}
 
 [input]
 

@@ -3,8 +3,9 @@ class_name Entity
 extends Node2D
 
 signal requested_move(entity, movement_goal)
+signal has_movement_goal(movement_goal)
 
-var _is_my_turn := true
+var _is_my_turn := false
 var _movement_goal := Vector2.ZERO
 
 func _ready() -> void:
@@ -12,23 +13,17 @@ func _ready() -> void:
 
 func _input(_event: InputEvent) -> void:
 	if(_is_my_turn):
-		_movement_goal = _get_movement_goal()
+		_movement_goal = _determine_movement_goal()
+		if _movement_goal != Vector2.ZERO:
+			emit_signal("has_movement_goal", _movement_goal)
 
-func _physics_process(delta: float) -> void:
-	_take_turn()
+func play_turn() -> void:
+	_is_my_turn = true
+	yield(self, "has_movement_goal")
+	_is_my_turn = false
+	emit_signal("requested_move", self, _movement_goal)
 
-func _movement_result(success: bool) -> void:
-	if success:
-		print("I moved")
-	else:
-		print("bump")
-	_movement_goal = Vector2.ZERO
-
-func _take_turn() -> void:
-	if _movement_goal:
-		emit_signal("requested_move", self, _movement_goal)
-
-func _get_movement_goal() -> Vector2:
+func _determine_movement_goal() -> Vector2:
 	var direction := Vector2.ZERO
 	
 	if Input.is_action_pressed("move_north"):
@@ -55,3 +50,6 @@ func _get_movement_goal() -> Vector2:
 	direction.y = clamp(direction.y, -1, 1)
 	direction.x = clamp(direction.x, -1, 1) 
 	return direction
+
+func _movement_result(success: bool) -> void:
+	_movement_goal = Vector2.ZERO

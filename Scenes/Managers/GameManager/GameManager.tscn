@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scenes/Entities/Entity/Entity.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/WorldGrid/WorldGrid.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Managers/GameManager/GameManager.gd" type="Script" id=3]
+[ext_resource path="res://Common/player_97.png" type="Texture" id=4]
+[ext_resource path="res://Scenes/Managers/TurnManager/TurnManager.tscn" type="PackedScene" id=5]
+
+[node name="GameManager" type="Node"]
+script = ExtResource( 3 )
+
+[node name="WorldGrid" parent="." instance=ExtResource( 2 )]
+
+[node name="TurnManager" parent="WorldGrid" instance=ExtResource( 5 )]
+
+[node name="Entity" parent="WorldGrid/TurnManager" instance=ExtResource( 1 )]
+position = Vector2( 32, 32 )
+
+[node name="Sprite" parent="WorldGrid/TurnManager/Entity" index="0"]
+texture = ExtResource( 4 )
+
+[node name="Entity3" parent="WorldGrid/TurnManager" instance=ExtResource( 1 )]
+position = Vector2( 353, 156 )
+
+[node name="Sprite" parent="WorldGrid/TurnManager/Entity3" index="0"]
+texture = ExtResource( 4 )
+
+[node name="Entity4" parent="WorldGrid/TurnManager" instance=ExtResource( 1 )]
+position = Vector2( 481, 154 )
+
+[node name="Sprite" parent="WorldGrid/TurnManager/Entity4" index="0"]
+texture = ExtResource( 4 )
+
+[editable path="WorldGrid/TurnManager/Entity"]
+[editable path="WorldGrid/TurnManager/Entity3"]
+[editable path="WorldGrid/TurnManager/Entity4"]
