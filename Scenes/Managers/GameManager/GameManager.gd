@@ -2,7 +2,7 @@
 class_name GameManager
 extends Node
 
-onready var WorldGrid := $WorldGrid
+onready var _world_grid := $WorldGrid
 
 func _ready() -> void:
 	_connect_to_signals()
@@ -30,11 +30,11 @@ func _get_entitys() -> Array:
 
 
 func _on_requested_move(entity: Entity, movement_goal: Vector2) -> void:
-	var cell_start : Vector2 = WorldGrid.world_to_map(entity.position)
+	var cell_start : Vector2 = _world_grid.world_to_map(entity.position)
 	var cell_target := cell_start + movement_goal
 	
-	if WorldGrid.cell_has_collision(cell_target):
+	if _world_grid.cell_has_collision(cell_target):
 		entity.call("_movement_result", false)
 	else:
-		entity.position = WorldGrid.map_to_world(cell_target)
+		entity.position = _world_grid.map_to_world(cell_target)
 		entity.call("_movement_result", true)
