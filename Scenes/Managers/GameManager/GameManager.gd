@@ -22,22 +22,10 @@ func _game_loop() -> void:
 func _play_round():
 	for node in _get_entitys():
 		var entity := node as Entity
-		if entity is Entity:
-			entity.round_update()
-			if entity.can_act:
-				var action : Action = yield(entity.play_turn(), "completed")
-				action.do(_world_grid)
+		entity.round_update()
+		if entity.can_act:
+			var action : Action = yield(entity.play_turn(), "completed")
+			action.do(_world_grid)
 
 func _get_entitys() -> Array:
 	return get_tree().get_nodes_in_group("entitys")
-
-
-func _on_requested_move(entity: Entity, movement_goal: Vector2) -> void:
-	var cell_start : Vector2 = _world_grid.world_to_map(entity.position)
-	var cell_target := cell_start + movement_goal
-	
-	if _world_grid.cell_has_collision(cell_target):
-		entity.call("_movement_result", false)
-	else:
-		entity.position = _world_grid.map_to_world(cell_target)
-		entity.call("_movement_result", true)

@@ -2,9 +2,9 @@
 class_name PrintAction
 extends Action
 
-var message
+var message: String
 
-func _init(message) -> void:
+func _init(message: String) -> void:
 	self.message = message
 
 func do(world_grid: WorldGrid) -> void:

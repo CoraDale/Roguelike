@@ -3,22 +3,22 @@ class_name PlayerController
 extends Node
 
 signal has_selected_action(action)
-var _entity
+var _entity: Entity
 
 func _input(event: InputEvent) -> void:
 	select_action(event)
 
-func set_entity(entity) -> void:
+func initialize(entity: Entity) -> void:
 	_entity = entity
 
 func select_action(event: InputEvent) -> Action:
 	var action: Action = null
 	if event.is_action_pressed("ui_select"):
-		action = PrintAction.new("%s says something unclear" % _entity)
+		action = PrintAction.new("%s says something unclear" % [_entity])
 	else:
 		var direction := _determine_movement_goal()
 		if direction != Vector2.ZERO:
-			action = PrintAction.new("%s wants to move %s" % [_entity, direction])
+			action = StepAction.new(_entity, direction)
 	if action:
 		emit_signal("has_selected_action", action)
 	return action

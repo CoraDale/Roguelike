@@ -12,7 +12,7 @@ var can_act := true
 
 func _ready() -> void:
 	add_to_group("entitys")
-	_controller.set_entity(self)
+	_controller.initialize(self)
 
 func round_update() -> void:
 	can_act = true
@@ -21,3 +21,9 @@ func play_turn() -> Action:
 	can_act = false
 	var action : Action = yield(_controller, 'has_selected_action')
 	return action
+
+func move_result(moved: bool) -> void:
+	if moved:
+		print('I moved')
+	else:
+		print('bump')
