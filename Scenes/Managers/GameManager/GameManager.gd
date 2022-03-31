@@ -23,7 +23,10 @@ func _play_round():
 	for node in _get_entitys():
 		var entity := node as Entity
 		if entity is Entity:
-			var action = yield(entity.round_update(), "completed")
+			entity.round_update()
+			if entity.can_act:
+				var action : Action = yield(entity.play_turn(), "completed")
+				action.do(_world_grid)
 
 func _get_entitys() -> Array:
 	return get_tree().get_nodes_in_group("entitys")

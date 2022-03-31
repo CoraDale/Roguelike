@@ -1,20 +1,15 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/Entities/Entity/Entity.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/WorldGrid/WorldGrid.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Managers/GameManager/GameManager.gd" type="Script" id=3]
 [ext_resource path="res://Common/player_97.png" type="Texture" id=4]
+[ext_resource path="res://Scenes/Controllers/PlayerController.gd" type="Script" id=5]
 
 [node name="GameManager" type="Node"]
 script = ExtResource( 3 )
 
 [node name="WorldGrid" parent="." instance=ExtResource( 2 )]
-
-[node name="Entity3" parent="WorldGrid" instance=ExtResource( 1 )]
-position = Vector2( 481, 154 )
-
-[node name="Sprite" parent="WorldGrid/Entity3" index="0"]
-texture = ExtResource( 4 )
 
 [node name="Entity2" parent="WorldGrid" instance=ExtResource( 1 )]
 position = Vector2( 353, 156 )
@@ -22,12 +17,27 @@ position = Vector2( 353, 156 )
 [node name="Sprite" parent="WorldGrid/Entity2" index="0"]
 texture = ExtResource( 4 )
 
+[node name="Controller" type="Node" parent="WorldGrid/Entity2"]
+script = ExtResource( 5 )
+
 [node name="Entity" parent="WorldGrid" instance=ExtResource( 1 )]
 position = Vector2( 222, 157 )
 
 [node name="Sprite" parent="WorldGrid/Entity" index="0"]
 texture = ExtResource( 4 )
 
-[editable path="WorldGrid/Entity3"]
+[node name="Controller" type="Node" parent="WorldGrid/Entity"]
+script = ExtResource( 5 )
+
+[node name="Entity3" parent="WorldGrid" instance=ExtResource( 1 )]
+position = Vector2( 481, 154 )
+
+[node name="Sprite" parent="WorldGrid/Entity3" index="0"]
+texture = ExtResource( 4 )
+
+[node name="Controller" type="Node" parent="WorldGrid/Entity3"]
+script = ExtResource( 5 )
+
 [editable path="WorldGrid/Entity2"]
 [editable path="WorldGrid/Entity"]
+[editable path="WorldGrid/Entity3"]

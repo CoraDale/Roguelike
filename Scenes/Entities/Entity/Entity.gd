@@ -6,25 +6,18 @@ signal requested_move(entity, movement_goal)
 signal has_movement_goal(movement_goal)
 
 var _movement_goal := Vector2.ZERO
+onready var _controller = $Controller
 
 var can_act := true
-var components := { "inputHandler": InputComponent.new() }
 
 func _ready() -> void:
 	add_to_group("entitys")
-
-func _input(_event: InputEvent) -> void:
-		_movement_goal = components.inputHandler.determine_movement_goal()
-		if _movement_goal != Vector2.ZERO:
-			emit_signal("has_movement_goal", _movement_goal)
+	_controller.set_entity(self)
 
 func round_update() -> void:
-	if self.can_act:
-		yield (play_turn(), 'completed')
+	can_act = true
 
-func play_turn() -> void:
-	yield(self, "has_movement_goal")
-	emit_signal("requested_move", self, _movement_goal)
-
-func _movement_result(success: bool) -> void:
-	_movement_goal = Vector2.ZERO
+func play_turn() -> Action:
+	can_act = false
+	var action : Action = yield(_controller, 'has_selected_action')
+	return action

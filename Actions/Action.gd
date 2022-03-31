@@ -5,8 +5,8 @@
 class_name Action
 extends Resource
 
-func do() -> void:
+func do(world_grid: WorldGrid) -> void:
 	pass
 
-func undo() -> void:
+func undo(world_grid: WorldGrid) -> void:
 	pass

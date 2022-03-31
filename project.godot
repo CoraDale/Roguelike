@@ -29,10 +29,15 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/godot-git-plugin/git_api.gdns"
 }, {
-"base": "Resource",
-"class": "InputComponent",
+"base": "Node",
+"class": "PlayerController",
 "language": "GDScript",
-"path": "res://Scenes/Entities/Components/InputComponent.gd"
+"path": "res://Scenes/Controllers/PlayerController.gd"
+}, {
+"base": "Action",
+"class": "PrintAction",
+"language": "GDScript",
+"path": "res://Actions/PrintAction.gd"
 }, {
 "base": "TileMap",
 "class": "WorldGrid",
@@ -44,7 +49,8 @@ _global_script_class_icons={
 "Entity": "",
 "GameManager": "",
 "GitAPI": "",
-"InputComponent": "",
+"PlayerController": "",
+"PrintAction": "",
 "WorldGrid": ""
 }
 
@@ -57,6 +63,10 @@ config/icon="res://icon.png"
 [gdnative]
 
 singletons=[ "res://addons/godot-git-plugin/git_api.gdnlib" ]
+
+[global]
+
+template=false
 
 [importer_defaults]
 
