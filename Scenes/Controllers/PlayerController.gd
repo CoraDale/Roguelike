@@ -6,7 +6,9 @@ signal has_selected_action(action)
 var _entity: Entity
 
 func _input(event: InputEvent) -> void:
-	select_action(event)
+	var action := select_action(event)
+	if action:
+		emit_signal("has_selected_action", action)
 
 func initialize(entity: Entity) -> void:
 	_entity = entity
@@ -15,12 +17,12 @@ func select_action(event: InputEvent) -> Action:
 	var action: Action = null
 	if event.is_action_pressed("ui_select"):
 		action = PrintAction.new("%s says something unclear" % [_entity])
+	if event.is_action_pressed("ui_focus_next"):
+		action = ChainPrintAction.new(["Chain message 1", "Chain message 2"])
 	else:
 		var direction := _determine_movement_goal()
 		if direction != Vector2.ZERO:
 			action = StepAction.new(_entity, direction)
-	if action:
-		emit_signal("has_selected_action", action)
 	return action
 
 func get_selected_action() -> Action:

@@ -2,29 +2,37 @@
 class_name StepAction
 extends Action
 
-var entity: Entity
-var direction: Vector2
+var _entity
+var _direction: Vector2
 
-func _init(entity: Entity, direction: Vector2) -> void:
-	self.entity = entity
-	self.direction = direction
+func _init(entity, direction: Vector2) -> void:
+	self._entity = entity
+	self._direction = direction
 
-func do(world_grid: WorldGrid) -> void:
-	var cell_start := world_grid.world_to_map(entity.position)
-	var cell_target := cell_start + direction
+func do(world_grid: WorldGrid) -> ActionResult:
+	var cell_start := world_grid.world_to_map(_entity.position)
+	var cell_target := cell_start + _direction
+	var result = ActionResult.new()
 	
 	if world_grid.cell_has_collision(cell_target):
-		entity.move_result(false)
+		result.set_record_action(true)
+		result.set_end_turn(false)
 	else:
-		entity.position = world_grid.map_to_world(cell_target)
-		entity.move_result(true)
+		_entity.position = world_grid.map_to_world(cell_target)
+		result.set_record_action(true)
+		result.set_end_turn(true)
+	return result
 
-func undo(world_grid: WorldGrid) -> void:
-	var cell_start := world_grid.world_to_map(entity.position)
-	var cell_target := cell_start + direction.rotated(180)
+func undo(world_grid: WorldGrid) -> ActionResult:
+	var cell_start := world_grid.world_to_map(_entity.position)
+	var cell_target := cell_start + _direction.rotated(180)
+	var result = ActionResult.new()
 	
 	if world_grid.cell_has_collision(cell_target):
-		entity.move_result(false)
+		result.set_record_action(true)
+		result.set_end_turn(false)
 	else:
-		entity.position = world_grid.map_to_world(cell_target)
-		entity.move_result(true)
+		_entity.position = world_grid.map_to_world(cell_target)
+		result.set_record_action(true)
+		result.set_end_turn(true)
+	return result

@@ -2,9 +2,6 @@
 class_name Entity
 extends Node2D
 
-signal requested_move(entity, movement_goal)
-signal has_movement_goal(movement_goal)
-
 var _movement_goal := Vector2.ZERO
 onready var _controller = $Controller
 
@@ -18,7 +15,6 @@ func round_update() -> void:
 	can_act = true
 
 func play_turn() -> Action:
-	can_act = false
 	var action : Action = yield(_controller, 'has_selected_action')
 	return action
 

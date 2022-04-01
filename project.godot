@@ -14,6 +14,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Actions/Action.gd"
 }, {
+"base": "Resource",
+"class": "ActionResult",
+"language": "GDScript",
+"path": "res://Actions/ActionResult.gd"
+}, {
+"base": "Action",
+"class": "ChainPrintAction",
+"language": "GDScript",
+"path": "res://Actions/ChainPrintAction.gd"
+}, {
 "base": "Node2D",
 "class": "Entity",
 "language": "GDScript",
@@ -51,6 +61,8 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Action": "",
+"ActionResult": "",
+"ChainPrintAction": "",
 "Entity": "",
 "GameManager": "",
 "GitAPI": "",

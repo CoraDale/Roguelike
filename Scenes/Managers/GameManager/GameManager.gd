@@ -1,31 +1,48 @@
-## The Root node for the game.
+## Main root node that runs the game loop and actions.
 class_name GameManager
 extends Node
 
 onready var _world_grid := $WorldGrid
 
-func _ready() -> void:
-	_connect_to_signals()
-	_game_loop()
+var action_history = []
 
-func _connect_to_signals() -> void:
-	for node in _get_entitys():
-		var entity := node as Entity
-		if entity is Entity:
-			entity.connect("requested_move", self, "_on_requested_move")
+func _ready() -> void:
+	_game_loop()
 
 func _game_loop() -> void:
 	while true:
 		yield(_play_round(), 'completed')
 		yield(get_tree(), 'idle_frame')
 
-func _play_round():
+func _play_round() -> void:
 	for node in _get_entitys():
 		var entity := node as Entity
 		entity.round_update()
-		if entity.can_act:
+		while entity.can_act:
 			var action : Action = yield(entity.play_turn(), "completed")
-			action.do(_world_grid)
+			var end_turn = _perform_action(action)
+			print(action_history)
+			if end_turn:
+				entity.can_act = false
+
+func _perform_action(action: Action) -> Array:
+	var action_chain = []
+	var result = action.do(_world_grid)
+	var chaining = true
+	while chaining:
+		if result.record_action:
+			action_chain.append(action)
+		if result.chaining:
+			var new_action = result.chained_action
+			result = new_action.do(_world_grid)
+		else:
+			chaining = false
+		if	result.cancel_chain:
+			action_chain = []
+	action_history.append_array(action_chain)
+	
+	return result.ends_turn
+	
 
 func _get_entitys() -> Array:
 	return get_tree().get_nodes_in_group("entitys")

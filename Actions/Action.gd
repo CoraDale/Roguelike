@@ -5,8 +5,12 @@
 class_name Action
 extends Resource
 
-func do(world_grid: WorldGrid) -> void:
-	pass
+func do(_world_grid: WorldGrid) -> ActionResult:
+	var result = ActionResult.new(-1)
+	printerr("action.do() was not overloaded")
+	return result
 
-func undo(world_grid: WorldGrid) -> void:
-	pass
+func undo(_world_grid: WorldGrid) -> ActionResult:
+	var result = ActionResult.new(-1)
+	printerr("action.undo() was not overloaded")
+	return result

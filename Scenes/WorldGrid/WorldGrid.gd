@@ -2,7 +2,7 @@
 class_name WorldGrid
 extends TileMap
 
-func cell_has_collision(coords: Vector2) -> bool:
+func cell_has_collision(_coords: Vector2) -> bool:
 	return false
 
 func _update_tiles(tiles: Array) -> void:
