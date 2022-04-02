@@ -9,10 +9,15 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Reference",
+"base": "Resource",
 "class": "Action",
 "language": "GDScript",
 "path": "res://Actions/Action.gd"
+}, {
+"base": "Resource",
+"class": "ActionResult",
+"language": "GDScript",
+"path": "res://Actions/ActionResult.gd"
 }, {
 "base": "Action",
 "class": "ChainPrintAction",
@@ -56,6 +61,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Action": "",
+"ActionResult": "",
 "ChainPrintAction": "",
 "Entity": "",
 "GameManager": "",

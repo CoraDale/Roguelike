@@ -7,8 +7,8 @@ var _messages: Array
 func _init(messages: Array) -> void:
 	self._messages = messages
 
-func do(_world_grid: WorldGrid) -> Result:
-	var result := Result.new()
+func do(_world_grid: WorldGrid) -> ActionResult:
+	var result := ActionResult.new()
 	print(_messages[0])
 	var next_action := PrintAction.new(_messages[1])
 	result.set_record_action(false)
@@ -16,8 +16,8 @@ func do(_world_grid: WorldGrid) -> Result:
 	result.set_chained_action(next_action)
 	return result
 
-func undo(_world_grid: WorldGrid) -> Result:
-	var result := Result.new()
+func undo(_world_grid: WorldGrid) -> ActionResult:
+	var result := ActionResult.new()
 	print(_messages.pop_front())
 	result.set_record_action(false)
 	result.set_end_turn(false)

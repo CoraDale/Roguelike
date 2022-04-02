@@ -7,15 +7,15 @@ var _message: String
 func _init(message: String) -> void:
 	self._message = message
 
-func do(_world_grid: WorldGrid) -> Result:
-	var result := Result.new()
+func do(_world_grid: WorldGrid) -> ActionResult:
+	var result := ActionResult.new()
 	print(_message)
 	result.set_record_action(false)
 	result.set_end_turn(false)
 	return result
 
-func undo(_world_grid: WorldGrid) -> Result:
-	var result := Result.new()
+func undo(_world_grid: WorldGrid) -> ActionResult:
+	var result := ActionResult.new()
 	print("Actually I take back %s" % _message)
 	result.set_record_action(false)
 	result.set_end_turn(false)
