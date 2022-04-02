@@ -39,8 +39,7 @@ func _perform_action(action: Action) -> bool:
 			chaining = false
 		if	result.cancel_chain:
 			action_chain = []
-	#action_history.append_array(action_chain)
-	
+	action_history.append_array(action_chain)
 	return result.ends_turn
 
 func _get_entitys() -> Array:
