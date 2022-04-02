@@ -1,29 +1,46 @@
-## The Root node for the game.
+## Main root node that runs the game loop and actions.
 class_name GameManager
 extends Node
 
-onready var WorldGrid := $WorldGrid
-onready var TurnManager := $WorldGrid/TurnManager
+onready var _world_grid := $WorldGrid
+
+var action_history := []
 
 func _ready() -> void:
-	_connect_to_signals()
-	
-func _physics_process(delta) -> void:
-	TurnManager.play_turn()
+	_game_loop()
 
-func _connect_to_signals() -> void:
-	var entitys := get_tree().get_nodes_in_group("entitys")
-	for node in entitys:
+func _game_loop() -> void:
+	while true:
+		yield(_play_round(), 'completed')
+		yield(get_tree(), 'idle_frame')
+
+func _play_round() -> void:
+	for node in _get_entitys():
 		var entity := node as Entity
-		if entity:
-			entity.connect("requested_move", self, "_on_requested_move")
+		entity.round_update()
+		while entity.can_act:
+			var action : Action = yield(entity.play_turn(), "completed")
+			var end_turn = _perform_action(action)
+			print(action_history)
+			if end_turn:
+				entity.can_act = false
 
-func _on_requested_move(entity: Entity, movement_goal: Vector2) -> void:
-	var cell_start : Vector2 = WorldGrid.world_to_map(entity.position)
-	var cell_target := cell_start + movement_goal
-	
-	if WorldGrid.cell_has_collision(cell_target):
-		entity.call("_movement_result", false)
-	else:
-		entity.position = WorldGrid.map_to_world(cell_target)
-		entity.call("_movement_result", true)
+func _perform_action(action: Action) -> bool:
+	var action_chain := []
+	var result := action.do(_world_grid)
+	var chaining := true
+	while chaining:
+		if result.record_action:
+			action_chain.append(action)
+		if result.chaining:
+			var new_action = result.chained_action
+			result = new_action.do(_world_grid)
+		else:
+			chaining = false
+		if	result.cancel_chain:
+			action_chain = []
+	action_history.append_array(action_chain)
+	return result.ends_turn
+
+func _get_entitys() -> Array:
+	return get_tree().get_nodes_in_group("entitys")

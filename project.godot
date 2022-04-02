@@ -9,6 +9,21 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Resource",
+"class": "Action",
+"language": "GDScript",
+"path": "res://Actions/Action.gd"
+}, {
+"base": "Resource",
+"class": "ActionResult",
+"language": "GDScript",
+"path": "res://Actions/ActionResult.gd"
+}, {
+"base": "Action",
+"class": "ChainPrintAction",
+"language": "GDScript",
+"path": "res://Actions/ChainPrintAction.gd"
+}, {
 "base": "Node2D",
 "class": "Entity",
 "language": "GDScript",
@@ -25,9 +40,19 @@ _global_script_classes=[ {
 "path": "res://addons/godot-git-plugin/git_api.gdns"
 }, {
 "base": "Node",
-"class": "TurnManager",
+"class": "PlayerController",
 "language": "GDScript",
-"path": "res://Scenes/Managers/TurnManager/TurnManager.gd"
+"path": "res://Scenes/Controllers/PlayerController.gd"
+}, {
+"base": "Action",
+"class": "PrintAction",
+"language": "GDScript",
+"path": "res://Actions/PrintAction.gd"
+}, {
+"base": "Action",
+"class": "StepAction",
+"language": "GDScript",
+"path": "res://Actions/StepAction.gd"
 }, {
 "base": "TileMap",
 "class": "WorldGrid",
@@ -35,10 +60,15 @@ _global_script_classes=[ {
 "path": "res://Scenes/WorldGrid/WorldGrid.gd"
 } ]
 _global_script_class_icons={
+"Action": "",
+"ActionResult": "",
+"ChainPrintAction": "",
 "Entity": "",
 "GameManager": "",
 "GitAPI": "",
-"TurnManager": "",
+"PlayerController": "",
+"PrintAction": "",
+"StepAction": "",
 "WorldGrid": ""
 }
 
@@ -48,9 +78,22 @@ config/name="Roguelike"
 run/main_scene="res://Scenes/Managers/GameManager/GameManager.tscn"
 config/icon="res://icon.png"
 
+[debug]
+
+settings/stdout/verbose_stdout=true
+
+[editor]
+
+main_run_args="--verbose"
+
 [gdnative]
 
 singletons=[ "res://addons/godot-git-plugin/git_api.gdnlib" ]
+
+[global]
+
+template=false
+args=false
 
 [importer_defaults]
 
