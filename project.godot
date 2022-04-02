@@ -9,15 +9,10 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Resource",
+"base": "Reference",
 "class": "Action",
 "language": "GDScript",
 "path": "res://Actions/Action.gd"
-}, {
-"base": "Resource",
-"class": "ActionResult",
-"language": "GDScript",
-"path": "res://Actions/ActionResult.gd"
 }, {
 "base": "Action",
 "class": "ChainPrintAction",
@@ -61,7 +56,6 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Action": "",
-"ActionResult": "",
 "ChainPrintAction": "",
 "Entity": "",
 "GameManager": "",
@@ -78,6 +72,14 @@ config/name="Roguelike"
 run/main_scene="res://Scenes/Managers/GameManager/GameManager.tscn"
 config/icon="res://icon.png"
 
+[debug]
+
+settings/stdout/verbose_stdout=true
+
+[editor]
+
+main_run_args="--verbose"
+
 [gdnative]
 
 singletons=[ "res://addons/godot-git-plugin/git_api.gdnlib" ]
@@ -85,6 +87,7 @@ singletons=[ "res://addons/godot-git-plugin/git_api.gdnlib" ]
 [global]
 
 template=false
+args=false
 
 [importer_defaults]
 

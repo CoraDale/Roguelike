@@ -4,7 +4,7 @@ extends Node
 
 onready var _world_grid := $WorldGrid
 
-var action_history = []
+var action_history := []
 
 func _ready() -> void:
 	_game_loop()
@@ -25,10 +25,10 @@ func _play_round() -> void:
 			if end_turn:
 				entity.can_act = false
 
-func _perform_action(action: Action) -> Array:
-	var action_chain = []
-	var result = action.do(_world_grid)
-	var chaining = true
+func _perform_action(action: Action) -> bool:
+	var action_chain := []
+	var result := action.do(_world_grid)
+	var chaining := true
 	while chaining:
 		if result.record_action:
 			action_chain.append(action)
@@ -39,10 +39,9 @@ func _perform_action(action: Action) -> Array:
 			chaining = false
 		if	result.cancel_chain:
 			action_chain = []
-	action_history.append_array(action_chain)
+	#action_history.append_array(action_chain)
 	
 	return result.ends_turn
-	
 
 func _get_entitys() -> Array:
 	return get_tree().get_nodes_in_group("entitys")

@@ -3,7 +3,7 @@ class_name Entity
 extends Node2D
 
 var _movement_goal := Vector2.ZERO
-onready var _controller = $Controller
+onready var _controller := $Controller
 
 var can_act := true
 
