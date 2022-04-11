@@ -18,7 +18,7 @@ func do(world_grid: WorldGrid) -> ActionResult:
 		result.set_record_action(true)
 		result.set_end_turn(false)
 	else:
-		_entity.position = world_grid.map_to_world(cell_target)
+		world_grid.move_entity(_entity, cell_target)
 		result.set_record_action(true)
 		result.set_end_turn(true)
 	return result
@@ -32,7 +32,7 @@ func undo(world_grid: WorldGrid) -> ActionResult:
 		result.set_record_action(true)
 		result.set_end_turn(false)
 	else:
-		_entity.position = world_grid.map_to_world(cell_target)
+		world_grid.move_entity(_entity, cell_target)
 		result.set_record_action(true)
 		result.set_end_turn(true)
 	return result

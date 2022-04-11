@@ -7,13 +7,21 @@ var entity_dict := {}
 func place_entities(entities: Array) -> void:
 	for node in entities:
 		var entity = node
-		var coords = self.world_to_map(entity.position)
-		if coords in entity_dict:
-			var array : Array = entity_dict.get(coords)
-			array.append(entity)
-		else:
-			var array := [entity]
-			entity_dict[coords] = array
+		var coords = world_to_map(entity.position)
+		add_entity_to_position(entity, coords)
+
+func add_entity_to_position(entity: Node, coords: Vector2) -> void:
+	if coords in entity_dict:
+		var array : Array = entity_dict.get(coords)
+		array.append(entity)
+	else:
+		var array := [entity]
+		entity_dict[coords] = array
+
+func remove_entity_from_position(entity: Node, coords: Vector2) -> void:
+	entity_dict.get(coords).erase(entity)
+	if entity_dict.get(coords).empty():
+		entity_dict.erase(coords)
 
 # Moving an entity will require not only adding it to the new location's entity array, but also
 # Removing it from the entity array of its current location. Finding an entity in a location's
@@ -22,7 +30,11 @@ func place_entities(entities: Array) -> void:
 # and manage its own id. This could be useful, and wouldn't be hard to implement by just giving them
 # each unique names and using the name as the id. However it probably isn't neccessary in this case since
 # There will not normally be many entities in a single place.
-func move_entity(entity, )
+func move_entity(entity: Node, cell_target: Vector2) -> void:
+	remove_entity_from_position(entity, world_to_map(entity.position))
+	add_entity_to_position(entity, cell_target)
+	entity.position = map_to_world(cell_target)
+	print(entity_dict)
 
 func cell_has_collision(_coords: Vector2) -> bool:
 	return false
