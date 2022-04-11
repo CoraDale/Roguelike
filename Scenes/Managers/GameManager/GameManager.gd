@@ -8,6 +8,8 @@ var action_history := []
 
 func _ready() -> void:
 	_game_loop()
+	_world_grid.place_entities(_get_entitys())
+	print(_world_grid.entity_dict)
 
 func _game_loop() -> void:
 	while true:
@@ -21,7 +23,6 @@ func _play_round() -> void:
 		while entity.can_act:
 			var action : Action = yield(entity.play_turn(), "completed")
 			var end_turn = _perform_action(action)
-			print(action_history)
 			if end_turn:
 				entity.can_act = false
 
