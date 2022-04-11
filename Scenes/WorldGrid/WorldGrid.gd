@@ -15,6 +15,15 @@ func place_entities(entities: Array) -> void:
 			var array := [entity]
 			entity_dict[coords] = array
 
+# Moving an entity will require not only adding it to the new location's entity array, but also
+# Removing it from the entity array of its current location. Finding an entity in a location's
+# Entity array will be quite slow IF there are many entities in the array. A possible option would
+# be to use location entity dictionaries that have ids for each entity. Each entity then needs to store
+# and manage its own id. This could be useful, and wouldn't be hard to implement by just giving them
+# each unique names and using the name as the id. However it probably isn't neccessary in this case since
+# There will not normally be many entities in a single place.
+func move_entity(entity, )
+
 func cell_has_collision(_coords: Vector2) -> bool:
 	return false
 
