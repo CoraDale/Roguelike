@@ -36,8 +36,12 @@ func move_entity(entity: Node, cell_target: Vector2) -> void:
 	entity.position = map_to_world(cell_target)
 	print(entity_dict)
 
-func cell_has_collision(_coords: Vector2) -> bool:
-	return false
+func cell_has_collision(coords: Vector2) -> bool:
+	var entity_array = entity_dict.get(coords, [])
+	if entity_array.empty():
+		return false
+	else:
+		return true
 
 func _update_tiles(tiles: Array) -> void:
 	for x in range(0, tiles.size()):
