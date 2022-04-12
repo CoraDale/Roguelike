@@ -1,4 +1,5 @@
-## Handles running actions and storing them in action history.
+## Handles running actions and storing them in action history, as well as interfacing with nodes that
+## the actions need to access
 class_name ActionRunner
 extends Node
 
