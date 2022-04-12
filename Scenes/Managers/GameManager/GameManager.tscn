@@ -12,6 +12,7 @@ script = ExtResource( 3 )
 
 [node name="ActionRunner" type="Node" parent="."]
 script = ExtResource( 6 )
+_world_grid = NodePath("../WorldGrid")
 
 [node name="WorldGrid" parent="." instance=ExtResource( 2 )]
 

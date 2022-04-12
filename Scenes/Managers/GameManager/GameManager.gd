@@ -8,7 +8,7 @@ onready var _action_runner := $ActionRunner
 func _ready() -> void:
 	_game_loop()
 	_world_grid.place_entities(_get_entitys())
-	_action_runner.set_world_grid(_world_grid)
+	#_action_runner.set_world_grid(_world_grid)
 	print(_world_grid.entity_dict)
 
 func _game_loop() -> void:

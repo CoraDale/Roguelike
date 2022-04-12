@@ -2,16 +2,13 @@
 class_name ActionRunner
 extends Node
 
-var _world_grid : WorldGrid
+export var _world_grid : NodePath
 
 var action_history := []
 
-func set_world_grid(node: WorldGrid) -> void:
-	_world_grid = node
-
 func perform_action(action: Action) -> bool:
 	var action_chain := []
-	var result := action.do(_world_grid)
+	var result := action.do(get_node(_world_grid))
 	var chaining := true
 	while chaining:
 		if result.record_action:
