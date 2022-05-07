@@ -3,8 +3,7 @@ class_name GameManager
 extends Node
 
 onready var _world_grid := $WorldGrid
-
-var action_history := []
+onready var _action_runner := $ActionRunner
 
 func _ready() -> void:
 	_game_loop()
@@ -22,26 +21,9 @@ func _play_round() -> void:
 		entity.round_update()
 		while entity.can_act:
 			var action : Action = yield(entity.play_turn(), "completed")
-			var end_turn = _perform_action(action)
+			var end_turn = _action_runner.perform_action(action)
 			if end_turn:
 				entity.can_act = false
-
-func _perform_action(action: Action) -> bool:
-	var action_chain := []
-	var result := action.do(_world_grid)
-	var chaining := true
-	while chaining:
-		if result.record_action:
-			action_chain.append(action)
-		if result.chaining:
-			var new_action = result.chained_action
-			result = new_action.do(_world_grid)
-		else:
-			chaining = false
-		if	result.cancel_chain:
-			action_chain = []
-	action_history.append_array(action_chain)
-	return result.ends_turn
 
 func _get_entitys() -> Array:
 	return get_tree().get_nodes_in_group("entitys")
