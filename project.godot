@@ -32,7 +32,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "GameManager",
 "language": "GDScript",
-"path": "res://Scenes/Managers/GameManager/GameManager.gd"
+"path": "res://Scenes/Game/Game.gd"
 }, {
 "base": "",
 "class": "GitAPI",
@@ -75,7 +75,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Roguelike"
-run/main_scene="res://Scenes/Managers/GameManager/GameManager.tscn"
+run/main_scene="res://Scenes/Game/Game.tscn"
 config/icon="res://icon.png"
 
 [debug]
